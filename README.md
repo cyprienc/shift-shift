@@ -77,6 +77,6 @@ See [benchmark/README.md](benchmark/README.md) to compare against actual Pylance
 
 Run the build and checks above before submitting a pull request. Report bugs through [GitHub Issues](https://github.com/cyprienc/shift-shift/issues), including extension version, platform and Index Status, with private paths and symbol names removed.
 
-The repository disables npm install scripts, pins CI actions, runs dependency and workflow audits, and keeps publishing credentials out of build jobs. See [SECURITY.md](SECURITY.md) for the supply-chain controls, private reporting channel and remaining runtime limitations.
+The repository disables npm install scripts, pins CI actions, runs dependency and workflow audits, and keeps publishing credentials out of build jobs. A separate release workflow verifies reviewed source and exact package provenance, then requires independent approval of the package hashes before producing an upload bundle. See [SECURITY.md](SECURITY.md) for the supply-chain controls, private reporting channel and remaining runtime limitations.
 
 See [PUBLISHING.md](PUBLISHING.md) for platform packaging and Marketplace release steps. The project uses the [MIT license](LICENSE); dependency licenses are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

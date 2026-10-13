@@ -43,6 +43,8 @@ jobs:
       - run: npm run build
       - run: npm run typecheck
       - run: npm test
+      - name: Test release policy
+        run: python3 tests/release-policy.test.py
       - name: Package Marketplace pre-release
         run: npm run package -- --pre-release
       - name: Verify Marketplace package

@@ -1,0 +1,72 @@
+name: Prepare reviewed release
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_commit:
+        description: Full SHA of the reviewed and merged current main commit
+        required: true
+        type: string
+      ci_run_id:
+        description: Successful main-push CI run ID for that commit (first attempt)
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: release-preparation
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    name: Verify reviewed source and exact artifacts
+    if: github.repository == 'cyprienc/shift-shift' && github.ref == 'refs/heads/main' && (github.actor_id == '5805228' || github.actor_id == '71314309')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read # Verify the merged PR and final-head independent approval.
+      actions: read # Inspect builds and download the chosen CI run's artifacts.
+      deployments: read # Inspect the release approval environment policy.
+      attestations: read # Verify provenance against GitHub's attestation service.
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Prepare verified candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_SOURCE: ${{ inputs.source_commit }}
+          RELEASE_CI_RUN: ${{ inputs.ci_run_id }}
+        run: |
+          python3 scripts/prepare-release.py --source "$RELEASE_SOURCE" \
+            --ci-run "$RELEASE_CI_RUN" --output "$RUNNER_TEMP/release-candidate"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-candidate
+          path: ${{ runner.temp }}/release-candidate/
+          if-no-files-found: error
+          retention-days: 7
+
+  approve:
+    name: Approve exact release bundle
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    environment: release-approval
+    permissions:
+      actions: read # Download the immutable candidate from this workflow run.
+    steps:
+      # Approval releases no credentials. This job never checks out source,
+      # executes downloaded files, builds dependencies, signs or publishes.
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: release-candidate
+          path: ${{ runner.temp }}/approved-release
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: approved-release
+          path: ${{ runner.temp }}/approved-release/
+          if-no-files-found: error
+          retention-days: 7
