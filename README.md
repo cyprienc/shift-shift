@@ -4,7 +4,7 @@ Local file and Python symbol search for VS Code, backed by a Rust worker. Tap an
 
 ## Install and use
 
-This repository contains the source for `CyprienCourtot.shift-shift`. A Marketplace release is being prepared. Build a VSIX using the instructions below, then install it with **Extensions → … → Install from VSIX…** and open a trusted filesystem workspace. Supported hosts: macOS ARM64, Linux x64 and Linux ARM64. For Remote SSH, install the matching Linux package on the remote extension host.
+This repository contains the source for `CyprienCourtot.shift-shift`. The first Marketplace pre-release is being prepared for macOS ARM64 and Linux x64. Build a VSIX using the instructions below, then install it with **Extensions → … → Install from VSIX…** and open a trusted filesystem workspace. Linux ARM64 source builds are experimental and still need runtime testing. For Remote SSH, install the matching Linux package on the remote extension host.
 
 Search starts indexing on first use. Files are parsed in bounded batches during discovery, so results appear before the entire directory tree has been walked. Open Python documents are indexed first. The picker refreshes as indexing progresses; its status bar shows the number of files indexed so far.
 

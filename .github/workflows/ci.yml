@@ -43,7 +43,10 @@ jobs:
       - run: npm run build
       - run: npm run typecheck
       - run: npm test
-      - run: npm run package
+      - name: Package Marketplace pre-release
+        run: npm run package -- --pre-release
+      - name: Verify Marketplace package
+        run: python3 scripts/verify-package.py --pre-release
       - name: Generate dependency inventory
         run: python3 scripts/sbom.py artifacts/dependencies.cdx.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
