@@ -25,7 +25,7 @@ Every eligible file is searchable by path. `.py` and `.pyi` files are parsed for
 There is **no file-count limit**. `.gitignore` is deliberately ignored and `third_party` is included. These directory/component names are excluded by default:
 
 ```text
-.git .hg .svn .venv venv node_modules __pycache__ .mypy_cache
+.git .hg .svn .claude .venv venv node_modules __pycache__ .mypy_cache
 .ruff_cache .pytest_cache target build dist .cache site-packages
 ```
 
