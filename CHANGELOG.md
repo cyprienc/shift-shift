@@ -2,6 +2,7 @@
 
 ## 0.1.1
 
+- Use the Marketplace package name `shift-shift-cc`; `shift-shift` is already owned by another publisher.
 - Prepare the first Marketplace pre-release for macOS ARM64 and Linux x64.
 - Exclude inherited credentials and loader-injection environment variables from the worker.
 - Parse files during directory discovery and show incremental indexing progress.

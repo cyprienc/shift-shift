@@ -75,4 +75,4 @@ if __name__ == "__main__":
     if target not in {"darwin-arm64", "linux-x64", "linux-arm64"}:
         parser.error("Specify a supported --target")
     version = json.loads(Path("package.json").read_text())["version"]
-    verify(Path(f"artifacts/shift-shift-{version}-{target}.vsix"), target, args.pre_release)
+    verify(Path(f"artifacts/shift-shift-cc-{version}-{target}.vsix"), target, args.pre_release)
