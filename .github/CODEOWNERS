@@ -1,0 +1,3 @@
+# Only these named owners can satisfy the required code-owner approval.
+# GitHub requires Write access; authors cannot approve their own pull requests.
+* @cyprienc @jschweiz

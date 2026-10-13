@@ -2,6 +2,8 @@
 
 ## 0.1.1
 
+- Prepare the first Marketplace pre-release for macOS ARM64 and Linux x64.
+- Exclude inherited credentials and loader-injection environment variables from the worker.
 - Parse files during directory discovery and show incremental indexing progress.
 - Index open Python documents before the full scan reaches them.
 - Refresh search results during indexing without postponing or cancelling a slower query.

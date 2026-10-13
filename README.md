@@ -4,7 +4,7 @@ Local file and Python symbol search for VS Code, backed by a Rust worker. Tap an
 
 ## Install and use
 
-This repository contains the source for `CyprienCourtot.shift-shift`. A Marketplace release is being prepared. Build a VSIX using the instructions below, then install it with **Extensions → … → Install from VSIX…** and open a trusted filesystem workspace. Supported hosts: macOS ARM64, Linux x64 and Linux ARM64. For Remote SSH, install the matching Linux package on the remote extension host.
+This repository contains the source for `CyprienCourtot.shift-shift`. The first Marketplace pre-release is being prepared for macOS ARM64 and Linux x64. Build a VSIX using the instructions below, then install it with **Extensions → … → Install from VSIX…** and open a trusted filesystem workspace. Linux ARM64 source builds are experimental and still need runtime testing. For Remote SSH, install the matching Linux package on the remote extension host.
 
 Search starts indexing on first use. Files are parsed in bounded batches during discovery, so results appear before the entire directory tree has been walked. Open Python documents are indexed first. The picker refreshes as indexing progresses; its status bar shows the number of files indexed so far.
 
@@ -77,6 +77,6 @@ See [benchmark/README.md](benchmark/README.md) to compare against actual Pylance
 
 Run the build and checks above before submitting a pull request. Report bugs through [GitHub Issues](https://github.com/cyprienc/shift-shift/issues), including extension version, platform and Index Status, with private paths and symbol names removed.
 
-The repository disables npm install scripts, pins CI actions, runs dependency and workflow audits, and keeps publishing credentials out of build jobs. See [SECURITY.md](SECURITY.md) for the supply-chain controls, private reporting channel and remaining runtime limitations.
+The repository disables npm install scripts, pins CI actions, runs dependency and workflow audits, and keeps publishing credentials out of build jobs. A separate release workflow verifies reviewed source and exact package provenance, then requires independent approval of the package hashes before producing an upload bundle. See [SECURITY.md](SECURITY.md) for the supply-chain controls, private reporting channel and remaining runtime limitations.
 
 See [PUBLISHING.md](PUBLISHING.md) for platform packaging and Marketplace release steps. The project uses the [MIT license](LICENSE); dependency licenses are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
