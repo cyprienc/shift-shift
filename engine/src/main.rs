@@ -27,6 +27,7 @@ const DEFAULT_EXCLUDES: &[&str] = &[
     ".git",
     ".hg",
     ".svn",
+    ".claude",
     ".venv",
     "venv",
     "node_modules",
