@@ -34,7 +34,7 @@ for(const platform of Object.keys(binaries)){
     await cp(`bin/${platform}`,join(stage,'bin',platform),{recursive:true});
     await copyFile('bin/checksums.json',join(stage,'bin','checksums.json'));
     await writeFile(join(stage,'.vscodeignore'),'**/*.map\n');
-    const result=spawnSync(process.execPath,[join(project,'node_modules/@vscode/vsce/vsce'),'package','--no-dependencies',...(preRelease?['--pre-release']:[]),'--target',platform,'--out',join(project,`artifacts/shift-shift-${manifest.version}-${platform}.vsix`)],{cwd:stage,stdio:'inherit'});
+    const result=spawnSync(process.execPath,[join(project,'node_modules/@vscode/vsce/vsce'),'package','--no-dependencies',...(preRelease?['--pre-release']:[]),'--target',platform,'--out',join(project,`artifacts/shift-shift-cc-${manifest.version}-${platform}.vsix`)],{cwd:stage,stdio:'inherit'});
     if(result.status)throw new Error(`Packaging ${platform} failed (${result.status})`);
   }finally{await rm(stage,{recursive:true,force:true});}
 }

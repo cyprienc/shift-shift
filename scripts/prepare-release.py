@@ -174,7 +174,7 @@ def prepare(run_id, source, output):
         directory = output / target
         subprocess.run(["gh", "run", "download", str(run_id), "--repo", REPOSITORY,
                         "--name", f"vsix-{os_name}", "--dir", str(directory)], check=True)
-        package = directory / f"shift-shift-{version}-{target}.vsix"
+        package = directory / f"shift-shift-cc-{version}-{target}.vsix"
         inventory = directory / "dependencies.cdx.json"
         require(set(directory.iterdir()) == {package, inventory} and all(
             p.is_file() and not p.is_symlink() for p in directory.iterdir()
@@ -195,7 +195,7 @@ def prepare(run_id, source, output):
         "ci_run_id": run_id, "codeql_run_id": codeql_run["id"],
         "release_preparation_run_id": os.environ["GITHUB_RUN_ID"],
         "reviewed_pull_request": pull["number"], "source_reviewer": reviewer,
-        "publisher": "CyprienCourtot", "extension": "shift-shift",
+        "publisher": "CyprienCourtot", "extension": "shift-shift-cc",
         "version": version, "channel": "pre-release", "files": files,
     }
     (output / "release-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")

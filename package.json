@@ -1,5 +1,5 @@
 {
-  "name": "shift-shift",
+  "name": "shift-shift-cc",
   "displayName": "Shift Shift — Python Monorepo Search",
   "description": "Local Rust-powered file and Python symbol navigation across the whole monorepo.",
   "version": "0.1.1",

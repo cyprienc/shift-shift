@@ -1,6 +1,6 @@
 # Publishing
 
-Publisher: `CyprienCourtot`. Extension ID: `CyprienCourtot.shift-shift`.
+Publisher: `CyprienCourtot`. Extension ID: `CyprienCourtot.shift-shift-cc`.
 
 Publishing is a maintainer action. CI validates and packages changes but does not upload them to the Marketplace. A separate release preparation workflow verifies reviewed source and exact artifact provenance, then requires independent approval before producing the upload bundle. That workflow has no Marketplace credentials or upload rights.
 
@@ -29,7 +29,7 @@ The first Marketplace release is a **0.1.1 pre-release for macOS ARM64 and Linux
 4. Inspect each archive for the publisher, version, target platform, worker checksum, license notices and absence of private source/results. Install the final archive into an isolated VS Code profile and verify it. The release preparation workflow enforces the following stronger provenance policy:
 
    ```sh
-   gh attestation verify artifacts/shift-shift-<version>-<platform>.vsix \
+   gh attestation verify artifacts/shift-shift-cc-<version>-<platform>.vsix \
      --repo cyprienc/shift-shift \
      --signer-workflow cyprienc/shift-shift/.github/workflows/ci.yml \
      --source-ref refs/heads/main --source-digest <reviewed-commit-sha> \
@@ -56,14 +56,16 @@ The Marketplace upload path does not enforce this repository's review or provena
 
 ## Upload
 
-After the exact release bundle is independently approved, upload through [Marketplace publisher management](https://marketplace.visualstudio.com/manage), under the existing publisher. Upload all matching platform packages to the same extension/version listing. A universal package is not provided because unsupported hosts cannot run the worker.
+After the exact release bundle is independently approved, upload through [Marketplace publisher management](https://marketplace.visualstudio.com/manage), under the existing publisher. For the first package, select **New extension → Visual Studio Code**. For the second platform package, use **Update** on the existing extension instead of creating another extension. Upload all matching platform packages to the same extension/version listing. A universal package is not provided because unsupported hosts cannot run the worker.
+
+Marketplace requires globally unique package names. `shift-shift` is already owned by another publisher, so this project uses `shift-shift-cc`; the visible title and shortcut remain Shift Shift. If uploading reports a name collision, check for an existing listing under this publisher before changing the identity. Any package identity change requires reviewed source, new CI artifacts and fresh independent artifact approval; never edit an approved VSIX in place.
 
 For automated publishing, use the [official Microsoft instructions](https://code.visualstudio.com/api/working-with-extensions/publishing-extension), preferably Microsoft Entra ID authentication. For example, after authenticating an identity that is a member of the publisher:
 
 ```sh
 npx --no-install vsce publish --azure-credential --packagePath \
-  artifacts/shift-shift-<version>-darwin-arm64.vsix \
-  artifacts/shift-shift-<version>-linux-x64.vsix
+  artifacts/shift-shift-cc-<version>-darwin-arm64.vsix \
+  artifacts/shift-shift-cc-<version>-linux-x64.vsix
 ```
 
 Never commit credentials or put publishing tokens in issues or chat. Use the platform metadata already in each VSIX; keep the publisher/name stable for automatic upgrades.

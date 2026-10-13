@@ -7,7 +7,7 @@ export async function activate():Promise<void>{
  let workerPath='';
  const workers=()=>execFileSync('ps',['-axo','pid,command'],{encoding:'utf8'}).split('\n').filter(l=>workerPath&&l.includes(workerPath));
  try{
-  const ext=vscode.extensions.getExtension('CyprienCourtot.shift-shift');if(!ext)throw new Error('Packaged extension unavailable');
+  const ext=vscode.extensions.getExtension('CyprienCourtot.shift-shift-cc');if(!ext)throw new Error('Packaged extension unavailable');
   workerPath=`${ext.extensionPath}/bin/${process.platform}-${process.arch}/shift-shift-worker`;
   await ext.activate();checks.activation=ext.isActive;checks.shortcut=ext.packageJSON.contributes.keybindings[0].key;
   await vscode.commands.executeCommand('shiftShift.open');await delay(500);checks.workerCount=workers().length;
