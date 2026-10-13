@@ -1,0 +1,12 @@
+node_modules/**
+engine/**
+src/**
+scripts/**
+tests/**
+benchmark/**
+.benchmark-local/**
+artifacts/**
+**/*.map
+tsconfig.json
+package-lock.json
+*.vsix

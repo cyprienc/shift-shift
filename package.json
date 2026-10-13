@@ -1,0 +1,98 @@
+{
+  "name": "shift-shift",
+  "displayName": "Shift Shift — Python Monorepo Search",
+  "description": "Local Rust-powered file and Python symbol navigation across the whole monorepo.",
+  "version": "0.1.1",
+  "publisher": "CyprienCourtot",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "extensionKind": [
+    "workspace"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/extension.js",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false
+    },
+    "virtualWorkspaces": {
+      "supported": false
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "shiftShift.open",
+        "title": "Shift Shift: Open Search"
+      },
+      {
+        "command": "shiftShift.reindex",
+        "title": "Shift Shift: Reindex"
+      },
+      {
+        "command": "shiftShift.status",
+        "title": "Shift Shift: Index Status"
+      }
+    ],
+    "keybindings": [
+      {
+        "key": "shift shift",
+        "command": "shiftShift.open",
+        "when": "isWorkspaceTrusted && !terminalFocus"
+      }
+    ],
+    "configuration": {
+      "title": "Shift Shift",
+      "properties": {
+        "shiftShift.exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Additional root-relative glob exclusions. .gitignore is deliberately ignored."
+        },
+        "shiftShift.memoryBudgetMiB": {
+          "type": "integer",
+          "default": 1024,
+          "minimum": 16,
+          "maximum": 16384,
+          "description": "Estimated worker memory budget before using private session-local disk storage; not a hard RSS limit."
+        },
+        "shiftShift.resultLimit": {
+          "type": "integer",
+          "default": 100,
+          "minimum": 1,
+          "maximum": 1000,
+          "description": "Picker display limit. Every eligible file is still indexed."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build:worker": "node scripts/build-worker.mjs",
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/*.test.mjs",
+    "package": "node scripts/package.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.1",
+    "@types/vscode": "1.100.0",
+    "@vscode/vsce": "4.0.0",
+    "esbuild": "0.25.5",
+    "typescript": "5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cyprienc/shift-shift.git"
+  },
+  "homepage": "https://github.com/cyprienc/shift-shift#readme",
+  "bugs": {
+    "url": "https://github.com/cyprienc/shift-shift/issues"
+  }
+}

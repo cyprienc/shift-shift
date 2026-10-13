@@ -1,0 +1,7 @@
+import {Client} from '../dist/client.mjs';import {readFile,writeFile} from 'node:fs/promises';import {relative,resolve} from 'node:path';
+const base=process.argv[2];const root=resolve(base,'corpus');
+const c=new Client(resolve('engine/target/release/shift-shift-worker'),[root],[],1024);await c.start();if(!c.status?.ready)await new Promise(r=>c.on('status',s=>{if(s.ready)r()}));const all=await c.request({op:'query',query:'',mode:'symbols',limit:0});
+const key=x=>JSON.stringify([x.path,x.name,x.line,x.column]);const actual=new Set(all.results.map(x=>key({...x,path:relative(root,x.path)})));let expected=0,missing=[],extra=[];let truth=new Set();let validPaths=new Set();
+for(const line of (await readFile(resolve(base,'ground-truth.jsonl'),'utf8')).split('\n')){if(!line)continue;const item=JSON.parse(line);if(!item.records)continue;validPaths.add(item.path);for(const r of item.records){const itemKey=key({...r,path:item.path});truth.add(itemKey);expected++;if(!actual.has(itemKey))missing.push({...r,path:item.path});}}
+for(const r of all.results){const item={...r,path:relative(root,r.path)};if(validPaths.has(item.path)&&!truth.has(key(item)))extra.push(item);}
+const summary={files:c.status.indexed,symbols:all.total,validSourceSymbols:expected,missingCount:missing.length,extraCount:extra.length,status:c.status,missing,extra};await writeFile(resolve(base,'coverage.json'),JSON.stringify(summary,null,2));console.log(JSON.stringify({...summary,status:undefined,missing:missing.slice(0,4),extra:extra.slice(0,4)}));await c.stop();

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+engine/target/
+artifacts/
+bin/
+.benchmark-local/
+*.vsix
+.DS_Store
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+benchmark-results/
