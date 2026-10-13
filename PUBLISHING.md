@@ -6,7 +6,7 @@ Publishing is a maintainer action. CI validates and packages changes but does no
 
 The first Marketplace release is a **0.1.1 pre-release for macOS ARM64 and Linux x64**. CI always sets and verifies the pre-release marker. Linux ARM64 is excluded from this release until its runtime is tested.
 
-`jschweiz` is the designated code owner for every file. Require code-owner approval, the existing CI checks and signed commits on `main`, including for administrators. GitHub requires the code owner to have Write access. Code ownership is read from the PR's base branch, so the initial PR adding `CODEOWNERS` needs its approval checked explicitly before merging; later PRs use GitHub's code-owner gate.
+`cyprienc` and `jschweiz` are the designated code owners for every file. Require approval from a code owner other than the PR author, the existing CI checks and signed commits on `main`, including for administrators. GitHub requires code owners to have Write access. Code ownership is read from the PR's base branch, so the initial PR adding `CODEOWNERS` needs `jschweiz`'s approval checked explicitly before merging; later PRs use GitHub's code-owner gate.
 
 ## Prepare a release
 
