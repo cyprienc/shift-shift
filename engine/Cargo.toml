@@ -6,7 +6,7 @@ rust-version = "1.97"
 license = "MIT"
 
 [dependencies]
-ruff_python_parser = "=0.0.17"
+ruff_python_parser = "=0.0.18"
 ruff_python_ast = "=0.0.17"
 ruff_text_size = "=0.0.17"
 rayon = "=1.12.0"
